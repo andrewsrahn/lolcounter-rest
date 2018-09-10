@@ -9,6 +9,8 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>lolcounter-rest</name>
+	<url>http://maven.apache.org</url>
+	<description>Lolcounter-rest produces JSON for consumption by client side applications.</description>
 
 	<build>
 		<finalName>lolcounter-rest</finalName>
@@ -54,7 +56,14 @@
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-binding</artifactId>
 		</dependency>
-		
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 	<properties>
 		<jersey.version>2.27</jersey.version>
