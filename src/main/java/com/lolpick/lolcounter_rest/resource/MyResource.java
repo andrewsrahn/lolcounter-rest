@@ -1,4 +1,4 @@
-package com.lolpick.lolcounter_rest;
+package com.lolpick.lolcounter_rest.resource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
