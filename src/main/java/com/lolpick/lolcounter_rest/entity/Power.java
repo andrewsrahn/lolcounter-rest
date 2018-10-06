@@ -43,7 +43,7 @@ public class Power implements Serializable {
 	@Column
 	String power;
 	
-	@OneToMany(mappedBy="page", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@OneToMany(mappedBy="power", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	List<Vote> blocks;
 	
 	public Power() {}

@@ -20,11 +20,14 @@ public class Vote implements Serializable {
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="page_id", nullable=false)
-	private Power page;
+	@JoinColumn(name="power_id", nullable=false)
+	private Power power;
 	
 	@Column
-	private String name;
+	private String us;
+	
+	@Column
+	private String them;
 	
 	@Column
 	private String lane;
@@ -39,11 +42,12 @@ public class Vote implements Serializable {
 		super();
 	}
 
-	public Vote(Integer id, Power page, String name, String lane, Integer up, Integer down) {
+	public Vote(Integer id, Power power, String us, String them, String lane, Integer up, Integer down) {
 		super();
 		this.id = id;
-		this.page = page;
-		this.name = name;
+		this.power = power;
+		this.us = us;
+		this.them = them;
 		this.lane = lane;
 		this.up = up;
 		this.down = down;
@@ -57,12 +61,28 @@ public class Vote implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public Power getPower() {
+		return power;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setPower(Power power) {
+		this.power = power;
+	}
+
+	public String getUs() {
+		return us;
+	}
+
+	public void setUs(String us) {
+		this.us = us;
+	}
+
+	public String getThem() {
+		return them;
+	}
+
+	public void setThem(String them) {
+		this.them = them;
 	}
 
 	public String getLane() {
@@ -89,21 +109,17 @@ public class Vote implements Serializable {
 		this.down = down;
 	}
 
-	public Power getPage() {
-		return page;
-	}
-
-	public void setPage(Power page) {
-		this.page = page;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((down == null) ? 0 : down.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lane == null) ? 0 : lane.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((page == null) ? 0 : page.hashCode());
+		result = prime * result + ((power == null) ? 0 : power.hashCode());
+		result = prime * result + ((them == null) ? 0 : them.hashCode());
+		result = prime * result + ((up == null) ? 0 : up.hashCode());
+		result = prime * result + ((us == null) ? 0 : us.hashCode());
 		return result;
 	}
 
@@ -116,27 +132,48 @@ public class Vote implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Vote other = (Vote) obj;
+		if (down == null) {
+			if (other.down != null)
+				return false;
+		} else if (!down.equals(other.down))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
 		if (lane == null) {
 			if (other.lane != null)
 				return false;
 		} else if (!lane.equals(other.lane))
 			return false;
-		if (name == null) {
-			if (other.name != null)
+		if (power == null) {
+			if (other.power != null)
 				return false;
-		} else if (!name.equals(other.name))
+		} else if (!power.equals(other.power))
 			return false;
-		if (page == null) {
-			if (other.page != null)
+		if (them == null) {
+			if (other.them != null)
 				return false;
-		} else if (!page.equals(other.page))
+		} else if (!them.equals(other.them))
+			return false;
+		if (up == null) {
+			if (other.up != null)
+				return false;
+		} else if (!up.equals(other.up))
+			return false;
+		if (us == null) {
+			if (other.us != null)
+				return false;
+		} else if (!us.equals(other.us))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Block [id=" + id + ", page=" + page + ", name=" + name + ", lane=" + lane + ", up="
-				+ up + ", down=" + down + "]";
+		return "Vote [id=" + id + ", power=" + power + ", us=" + us + ", them=" + them + ", lane=" + lane + ", up=" + up
+				+ ", down=" + down + "]";
 	}
+
 }
