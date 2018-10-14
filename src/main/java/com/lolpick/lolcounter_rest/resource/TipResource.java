@@ -1,7 +1,7 @@
 package com.lolpick.lolcounter_rest.resource;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -21,17 +21,14 @@ public class TipResource {
 	public Response getAllTips() throws Exception {
 		List<Tip> tips = TipDao.readTips();
 		
-		List<JsonObject> jsons = new ArrayList<>();
-		
-		for(Tip tip: tips) {
-			jsons.add(
-					Json.createObjectBuilder()
+		List<JsonObject> jsons = tips.stream()
+			.map(tip -> Json.createObjectBuilder()
 					.add("id", tip.getId())
 					.add("votes", tip.getVotes())
 					.add("us", tip.getUs().getName())
 					.add("tip", tip.getTip())
-					.build());
-		}
+					.build())
+			.collect(Collectors.toList());
 		
 		return Response.ok()
 				.entity(jsons)

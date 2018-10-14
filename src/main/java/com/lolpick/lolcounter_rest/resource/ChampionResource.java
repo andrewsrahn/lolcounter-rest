@@ -1,7 +1,10 @@
 package com.lolpick.lolcounter_rest.resource;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -17,14 +20,18 @@ public class ChampionResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllChampions() throws Exception {
 		List<Champion> champions = ChampionDao.readChampions();
-		System.out.println(new Champion(1, "Andrew"));
-		System.out.println(champions.get(0));
-		System.out.println(champions);
 		
-		Champion champion = champions.get(0);
+		List<JsonObject> jsons = ChampionDao.readChampions().stream()
+				.map(champion -> Json.createObjectBuilder()
+						.add("id", champion.getId())
+						.add("name", champion.getName())
+						.add("lanes", champion.getLanes().toString())
+						.add("roles", champion.getRoles().toString())
+						.build())
+				.collect(Collectors.toList());
 		
 		return Response.ok()
-				.entity(champion)
+				.entity(jsons)
 				.type(MediaType.APPLICATION_JSON)
 				.build();
 	}
