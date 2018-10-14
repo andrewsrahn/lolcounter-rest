@@ -20,6 +20,8 @@ import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @XmlRootElement
 @Entity
 @Table(name="role")
@@ -33,6 +35,7 @@ public class Role implements Serializable {
 	@Column(name="champion_role")
 	private String role;
 	
+	@JsonIgnore
 	@ManyToMany(fetch=FetchType.LAZY)
 	@Cascade({CascadeType.SAVE_UPDATE})
 	@JoinTable(name="champion_role", 

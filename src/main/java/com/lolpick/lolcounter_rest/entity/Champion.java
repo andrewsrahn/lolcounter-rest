@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @XmlRootElement
 @Entity
 @Table(name="champion")
@@ -26,10 +28,12 @@ public class Champion implements Serializable{
 	@Column
 	private String name;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="champions")
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private Set<Lane> lanes;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy="champions")
 	@Cascade({CascadeType.SAVE_UPDATE})
 	private Set<Role> roles;

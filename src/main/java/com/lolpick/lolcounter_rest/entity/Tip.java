@@ -12,6 +12,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @XmlRootElement
 @Entity
 @Table(name="tip")
@@ -29,10 +31,12 @@ public class Tip implements Comparable<Tip>, Serializable {
 	@Column
 	private Integer votes;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="us")
 	private Champion us;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="them")
 	private Champion them;

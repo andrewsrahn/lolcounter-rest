@@ -1,8 +1,6 @@
 package com.lolpick.lolcounter_rest.resource;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -12,8 +10,6 @@ import javax.ws.rs.core.Response;
 
 import com.lolpick.lolcounter_rest.dao.ChampionDao;
 import com.lolpick.lolcounter_rest.entity.Champion;
-import com.lolpick.lolcounter_rest.entity.Lane;
-import com.lolpick.lolcounter_rest.entity.Role;
 
 @Path("champion")
 public class ChampionResource {
@@ -23,6 +19,7 @@ public class ChampionResource {
 		List<Champion> champions = ChampionDao.readChampions();
 		System.out.println(new Champion(1, "Andrew"));
 		System.out.println(champions.get(0));
+		System.out.println(champions);
 		
 		Champion champion = champions.get(0);
 		

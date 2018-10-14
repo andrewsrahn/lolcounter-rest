@@ -19,6 +19,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.hibernate.annotations.CollectionId;
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @XmlRootElement
 @Entity
 @Table(name="lane")
@@ -32,7 +34,8 @@ public class Lane implements Serializable {
 	@Column(name="champion_lane")
 	private String lane;
 	
-	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JsonIgnore
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
 	@JoinTable(name="champion_lane", 
 			joinColumns= {@JoinColumn(name="lane_id")},
 			inverseJoinColumns= {@JoinColumn(name="champion_id")})
