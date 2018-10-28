@@ -1,9 +1,10 @@
 package com.lolpick.lolcounter_rest.resource;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,16 +20,29 @@ public class ChampionResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAllChampions() throws Exception {
-		List<Champion> champions = ChampionDao.readChampions();
+		List<JsonObject> jsons = new ArrayList<>();
 		
-		List<JsonObject> jsons = ChampionDao.readChampions().stream()
-				.map(champion -> Json.createObjectBuilder()
-						.add("id", champion.getId())
-						.add("name", champion.getName())
-						.add("lanes", champion.getLanes().toString())
-						.add("roles", champion.getRoles().toString())
-						.build())
-				.collect(Collectors.toList());
+		for(Champion champion: ChampionDao.readChampions()) {
+			
+			JsonArrayBuilder lanes = Json.createArrayBuilder();
+			JsonArrayBuilder roles = Json.createArrayBuilder();
+			
+			champion.getLanes().stream()
+				.forEach(lane -> lanes.add(lane.getLane()));
+			
+			champion.getRoles().stream()
+				.forEach(role -> roles.add(role.getRole()));
+			
+			
+			JsonObject json = Json.createObjectBuilder()
+					.add("id", champion.getId())
+					.add("name", champion.getName())
+					.add("lanes", lanes.build())
+					.add("roles", roles)
+					.build();
+			
+			jsons.add(json);
+		}
 		
 		return Response.ok()
 				.entity(jsons)
