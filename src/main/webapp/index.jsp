@@ -21,5 +21,13 @@
 				type='submit' value='submit' />
 		</form>
 	</div>
+	<div>
+		<p>pick</p>
+		<form action='webapi/pick' method='get'>
+			<input type='text' name='name' value='Warwick' placeholder='Enter name' />
+			<input type='submit' value='submit'/>
+		</form>
+	</div>
+	
 </body>
 </html>
